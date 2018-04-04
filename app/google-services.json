@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "932586259849",
+    "firebase_url": "https://crisma-b8542.firebaseio.com",
+    "project_id": "crisma-b8542",
+    "storage_bucket": "crisma-b8542.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932586259849:android:970ae0435a7f7f41",
+        "android_client_info": {
+          "package_name": "com.appcrisma.afi.appcrisma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932586259849-cndap67omhaefc3pdrbage6v2mt75rh0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appcrisma.afi.appcrisma",
+            "certificate_hash": "8efddaebd8577fec0e164bf450aee16ff7960f18"
+          }
+        },
+        {
+          "client_id": "932586259849-mgln9nhe8sdh7gncnqumeb1bap0m7q8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPeX2_6EbDCoMIxNAAI9GgTTT4-xxG_iw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932586259849-mgln9nhe8sdh7gncnqumeb1bap0m7q8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
