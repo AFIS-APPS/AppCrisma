@@ -39,7 +39,6 @@
         <activity android:name=".Crismando.AvisosActivity" />
         <activity android:name=".Catequista.ConfigsCatequistaActivity" />
         <activity android:name=".Catequista.ListaActivity" />
-        <activity android:name=".Helper.Teste"></activity>
     </application>
 
 </manifest>
