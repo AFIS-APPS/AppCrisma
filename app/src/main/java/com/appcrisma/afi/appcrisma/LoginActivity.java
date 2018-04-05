@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.appcrisma.afi.appcrisma.Catequista.MainActivityCatequista;
 import com.appcrisma.afi.appcrisma.Catequista.ModeloCatequista;
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
+import com.appcrisma.afi.appcrisma.Crismando.MainActivityCrismando;
+import com.appcrisma.afi.appcrisma.Helper.BDContas;
 import com.appcrisma.afi.appcrisma.Helper.Base64Custom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,15 +63,26 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    final String codedLogin = Base64Custom.codificaBase64(login.getText().toString());
 
-
-                                    FirebaseDatabase.getInstance().getReference("DadosContas").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    FirebaseDatabase.getInstance().getReference("BDContas").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot dados : dataSnapshot.getChildren()){
 
-                                                Log.i("Teste", dados.getChildren().toString());
-                                                Log.i("Teste", dados.getKey());
+                                                if(dados.getKey().equals("CatequistasCadastrados")){
+                                                    if(dados.getValue().toString().contains(codedLogin)){
+                                                        startActivity(new Intent(LoginActivity.this, MainActivityCatequista.class));
+                                                        Log.i("Teste", "Catequista = " + codedLogin);
+                                                    }
+                                                }
+
+                                                if(dados.getKey().equals("CrismandosCadastrados")){
+                                                    if(dados.getValue().toString().contains(codedLogin)){
+                                                        startActivity(new Intent(LoginActivity.this, MainActivityCrismando.class));
+                                                        Log.i("Teste", "Crismando = " + codedLogin);
+                                                    }
+                                                }
 
                                             }
 
@@ -83,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                     progressDialog.dismiss();
-                                    startActivity(new Intent(getApplicationContext(), MainActivityCatequista.class));
+//                                    startActivity(new Intent(getApplicationContext(), MainActivityCatequista.class));
                                 } else {
                                     progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();

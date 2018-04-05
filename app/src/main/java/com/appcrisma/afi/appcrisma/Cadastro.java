@@ -28,6 +28,7 @@ import com.appcrisma.afi.appcrisma.Catequista.ModeloCatequista;
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.Crismando.MainActivityCrismando;
 import com.appcrisma.afi.appcrisma.Crismando.ModeloCrismando;
+import com.appcrisma.afi.appcrisma.Helper.BDContas;
 import com.appcrisma.afi.appcrisma.Helper.Base64Custom;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -219,18 +220,28 @@ public class Cadastro extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Obrigado por se cadastrar! Seja bem vindo!", Toast.LENGTH_LONG).show();
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
-
+                    BDContas bdContas = new BDContas();
                     if (tipoUsuarioCadastro().equals(catequista)) {
                         String codedMail = Base64Custom.codificaBase64(email);
-                        modeloCatequista.setId(Base64Custom.codificaBase64(email));
-                        FirebaseConfig.getDatabaseReference().child("DadosContas").child("CatequistasCadastrados")
-                                .child(codedMail).setValue(modeloCatequista.getNome());
+
+
+                        bdContas.setChaveId(codedMail);
+                        bdContas.setNomeUser(modeloCatequista.getNome());
+
+                        modeloCatequista.setId(codedMail);
+                        FirebaseConfig.getDatabaseReference().child("BDContas").child("CatequistasCadastrados")
+                                .child(bdContas.getChaveId()).setValue(bdContas);
                         modeloCatequista.salvarCadastro();
                     } else if (tipoUsuarioCadastro().equals(crismando)) {
                         String codedMail = Base64Custom.codificaBase64(email);
+
+
+                        bdContas.setChaveId(codedMail);
+                        bdContas.setNomeUser(modeloCrismando.getNome());
+
                         modeloCrismando.setId(codedMail);
-                        FirebaseConfig.getDatabaseReference().child("DadosContas").child("CrismandosCadastrados")
-                                .child(codedMail).setValue(modeloCrismando.getNome());
+                        FirebaseConfig.getDatabaseReference().child("BDContas").child("CrismandosCadastrados")
+                                .child(bdContas.getChaveId()).setValue(bdContas);
                         modeloCrismando.salvarCadastro();
                     }
 
