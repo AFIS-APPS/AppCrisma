@@ -16,9 +16,16 @@
     </string-array>
     <string-array name="selecionarTurmaCat">
         <item>Alterar Turma</item>
-        <item>TURMA A</item>
-        <item>TURMA B</item>
-        <item>TURMA C</item>
+        <item>Santo Andre</item>
+        <item>Sao Joao</item>
+        <item> Sao Judas Tadeu</item>
+        <item> Sao Mateus</item>
+        <item> Sao Pedro</item>
+        <item> Sao Tiago Menor</item>
+        <item> Modulo I</item>
+        <item> Modulo II</item>
+        <item> Modulo III</item>
+
     </string-array>
     <string name="title_activity_login">Sign in</string>
 
@@ -34,5 +41,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="codigosturmas">TURMA: A __________ CÓDIGO: TRM2018A\nTURMA: B __________ CÓDIGO: TRM2018B\nTURMA: C __________ CÓDIGO: TRM2018C \n</string>
+    <string name="codigosturmas"><b> TURMA:</b> Santo André || CÓDIGO: TRM2018STANDRE\n
+        <b> TURMA:</b> São João         || <b> CÓDIGO: </b> TRM2018STJOAO\n
+        <b> TURMA:</b> São Judas Tadeu  || <b> CÓDIGO: </b> TRM2018STJUDAST\n
+        <b> TURMA:</b> São Mateus       || <b> CÓDIGO: </b> TRM2018STMATEUS\n
+        <b> TURMA:</b> São Pedro        || <b> CÓDIGO: </b> TRM2018STPEDRO\n
+        <b> TURMA:</b> São Tiago Menor  || <b> CÓDIGO: </b> TRM2018STTIAGOM\n
+        <b> TURMA:</b> Módulo I         || <b> CÓDIGO: </b> TRM2018MDI\n
+        <b> TURMA:</b> Módulo II        || <b> CÓDIGO: </b> TRM2018MDII\n
+        <b> TURMA:</b> Módulo III       || <b> CÓDIGO: </b> TRM2018MDIII\n
+    </string>
 </resources>

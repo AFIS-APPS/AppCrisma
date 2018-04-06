@@ -6,15 +6,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 
 import com.appcrisma.afi.appcrisma.R;
 
 public class ConfigsCatequistaActivity extends AppCompatActivity {
 
+    private TableLayout tableTurmas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configs_catequista);
+
+        tableTurmas.findViewById(R.id.TableTurmas);
+        
 
         Spinner spinnerTurmaCat = findViewById(R.id.spinnerTurmaCat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.selecionarTurmaCat, R.layout.support_simple_spinner_dropdown_item);
