@@ -7,10 +7,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.appcrisma.afi.appcrisma.Catequista.AvisosActivity;
-import com.appcrisma.afi.appcrisma.Catequista.ConfigsCatequistaActivity;
-import com.appcrisma.afi.appcrisma.Catequista.ListaActivity;
-import com.appcrisma.afi.appcrisma.Catequista.MainActivityCatequista;
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.R;
 import com.hitomi.cmlibrary.CircleMenu;
@@ -28,8 +24,6 @@ public class MainActivityCrismando extends AppCompatActivity {
 
         circleMenu.setMainMenu(Color.parseColor("#FFFFFF"), R.drawable.icone_biblia, R.drawable.icone_menu_biblia);
         circleMenu.addSubMenu(Color.parseColor("#FFFFFF"), R.drawable.icone_avisos);
-        circleMenu.addSubMenu(Color.parseColor("#FFFFFF"), R.drawable.icone_lista);
-        circleMenu.addSubMenu(Color.parseColor("#FFFFFF"), R.drawable.icone_config);
         circleMenu.addSubMenu(Color.parseColor("#bce71916"), R.drawable.icone_sair);
 
 
@@ -37,10 +31,10 @@ public class MainActivityCrismando extends AppCompatActivity {
             @Override
             public void onMenuSelected(int i) {
                 switch (i) {
-//                    case 0: {
-//                        startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
-//                        break;
-//                    }
+                    case 0: {
+                        startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
+                        break;
+                    }
 //                    case 1: {
 //                        startActivity(new Intent(getApplicationContext(), ListaActivity.class));
 //                        break;
@@ -49,7 +43,7 @@ public class MainActivityCrismando extends AppCompatActivity {
 //                        startActivity(new Intent(getApplicationContext(), ConfigsCatequistaActivity.class));
 //                        break;
 //                    }
-                    case 3:{
+                    case 2:{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivityCrismando.this);
                         builder.setIcon(R.drawable.ic_info_black_24dp);
                         builder.setTitle("Deseja mesmo Sair?");

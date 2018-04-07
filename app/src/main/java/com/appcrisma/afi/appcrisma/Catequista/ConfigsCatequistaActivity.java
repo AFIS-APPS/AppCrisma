@@ -20,7 +20,7 @@ public class ConfigsCatequistaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configs_catequista);
 
         tableTurmas.findViewById(R.id.TableTurmas);
-        
+
 
         Spinner spinnerTurmaCat = findViewById(R.id.spinnerTurmaCat);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.selecionarTurmaCat, R.layout.support_simple_spinner_dropdown_item);

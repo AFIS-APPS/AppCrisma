@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.R;
 import com.google.firebase.database.DataSnapshot;
@@ -38,11 +37,12 @@ public class ListaActivity extends AppCompatActivity {
 
         ListView listaAlunos = findViewById(R.id.listaAlunos);
 
-        final ArrayAdapter adapter;
+        ArrayAdapter adapter;
+        ArrayList<String> arrayturmas;
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        arrayturmas = new ArrayList<>();
 
-
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayturmas);
 
         listaAlunos.setAdapter(adapter);
 
@@ -51,10 +51,10 @@ public class ListaActivity extends AppCompatActivity {
         eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
-                for(DataSnapshot dados : dataSnapshot.getChildren()){
-                    adapter.add(dados.getChildren().toString());
-                }
+//                adapter.clear();
+//                for(DataSnapshot dados : dataSnapshot.getChildren()){
+//                    adapter.add(dados);
+//                }
             }
 
             @Override
