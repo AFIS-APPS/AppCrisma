@@ -17,6 +17,7 @@ import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.Crismando.MainActivityCrismando;
 import com.appcrisma.afi.appcrisma.Helper.BDContas;
 import com.appcrisma.afi.appcrisma.Helper.Base64Custom;
+import com.appcrisma.afi.appcrisma.Helper.Loader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,18 +31,22 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btnLogin;
     EditText login, senha;
-    ProgressDialog progressDialog;
+    Loader loader;
     Task<AuthResult> auth;
+    ProgressDialog dialog;
+    String codedLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loader = new Loader();
 
 
         if (FirebaseConfig.getFirebaseAutenticacao().getCurrentUser() != null) {
-            loading();
-            startActivity(new Intent(getApplicationContext(), MainActivityCatequista.class));
+            loader.getProgressDialog();
+            codedLogin = Base64Custom.codificaBase64(FirebaseConfig.getFirebaseAutenticacao().getCurrentUser().getEmail());
+            verificaUsuarioBase();
         } else {
             btnLogin = findViewById(R.id.buttonLogin);
             login = findViewById(R.id.campoEmail);
@@ -49,13 +54,20 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loading();
+
+                    dialog = loader.loading(LoginActivity.this);
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             if (login.getText().toString().equals("") || senha.getText().toString().equals("")) {
-                                progressDialog.dismiss();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(LoginActivity.this, "Informe o Usuário e Senha!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                dialog.dismiss();
                             } else {
 
                         auth = FirebaseConfig.getFirebaseAuth().signInWithEmailAndPassword(login.getText().toString(), senha.getText().toString());
@@ -63,42 +75,13 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    final String codedLogin = Base64Custom.codificaBase64(login.getText().toString());
+                                    codedLogin = Base64Custom.codificaBase64(login.getText().toString());
 
-                                    FirebaseDatabase.getInstance().getReference("BDContas").addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot dados : dataSnapshot.getChildren()){
+                                    verificaUsuarioBase();
 
-                                                if(dados.getKey().equals("CatequistasCadastrados")){
-                                                    if(dados.getValue().toString().contains(codedLogin)){
-                                                        startActivity(new Intent(LoginActivity.this, MainActivityCatequista.class));
-                                                        Log.i("Teste", "Catequista = " + codedLogin);
-                                                    }
-                                                }
-
-                                                if(dados.getKey().equals("CrismandosCadastrados")){
-                                                    if(dados.getValue().toString().contains(codedLogin)){
-                                                        startActivity(new Intent(LoginActivity.this, MainActivityCrismando.class));
-                                                        Log.i("Teste", "Crismando = " + codedLogin);
-                                                    }
-                                                }
-
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-
-
-                                    progressDialog.dismiss();
-//                                    startActivity(new Intent(getApplicationContext(), MainActivityCatequista.class));
+                                    dialog.dismiss();
                                 } else {
-                                    progressDialog.dismiss();
+                                    dialog.dismiss();
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -132,20 +115,47 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void verificaUsuarioBase(){
+        FirebaseDatabase.getInstance().getReference("BDContas").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dados : dataSnapshot.getChildren()){
+
+                    if(dados.getKey().equals("CatequistasCadastrados")){
+                        if(dados.getValue().toString().contains(codedLogin)){
+                            startActivity(new Intent(LoginActivity.this, MainActivityCatequista.class));
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Uruário não existe em nossa Base de Dados!", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    if(dados.getKey().equals("CrismandosCadastrados")){
+                        if(dados.getValue().toString().contains(codedLogin)){
+                            startActivity(new Intent(LoginActivity.this, MainActivityCrismando.class));
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Uruário não existe em nossa Base de Dados!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     private void aviso() {
 
         Toast.makeText(LoginActivity.this, "Informe seu e-mail e senha!", Toast.LENGTH_SHORT).show();
 
     }
 
-
-    public void loading() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
 }
 
 

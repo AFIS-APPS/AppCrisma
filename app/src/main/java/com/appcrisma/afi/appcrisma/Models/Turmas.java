@@ -1,5 +1,7 @@
 package com.appcrisma.afi.appcrisma.Models;
 
+import com.google.firebase.database.Exclude;
+
 public class Turmas {
 
     String turma, nomeCrismando, telefoneCrismando;
@@ -8,7 +10,7 @@ public class Turmas {
     public Turmas(){
         numFaltas = 0;
     }
-
+    @Exclude
     public String getTurma() {
         return turma;
     }

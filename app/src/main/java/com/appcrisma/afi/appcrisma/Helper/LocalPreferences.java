@@ -12,14 +12,21 @@ public class LocalPreferences {
     private SharedPreferences.Editor editor;
 
     private final String CHAVE_IDENTIFICADOR = "IdentificarUsuarioLogado";
+    private final String CHAVE_CATEQUISTA_TURMA = "IdenticarTurmaCatequista";
 
     public LocalPreferences(Context contextoParametro){
 
         contexto = contextoParametro;
-        preferences = contexto.getSharedPreferences(NOME_ARQUIVO, MODE );
+        preferences = contexto.getSharedPreferences(NOME_ARQUIVO, MODE);
         editor = preferences.edit();
 
     }
+
+    public void salvarTurma(String turma){
+        editor.putString(CHAVE_CATEQUISTA_TURMA, turma);
+        editor.commit();
+    }
+
 
     public void salvarDados( String currentUser){
 
@@ -30,6 +37,11 @@ public class LocalPreferences {
 
     public String getIdentificador(){
         return preferences.getString(CHAVE_IDENTIFICADOR, null);
+
+    }
+
+    public String getTurmaCatequista(){
+        return preferences.getString(CHAVE_CATEQUISTA_TURMA, null);
 
     }
 

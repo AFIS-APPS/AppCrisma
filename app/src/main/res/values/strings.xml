@@ -16,15 +16,15 @@
     </string-array>
     <string-array name="selecionarTurmaCat">
         <item>Alterar Turma</item>
-        <item>Santo Andre</item>
-        <item>Sao Joao</item>
-        <item> Sao Judas Tadeu</item>
-        <item> Sao Mateus</item>
-        <item> Sao Pedro</item>
-        <item> Sao Tiago Menor</item>
-        <item> Modulo I</item>
-        <item> Modulo II</item>
-        <item> Modulo III</item>
+        <item>Santo Andre - TRM2018STANDRE</item>
+        <item>Sao Joao - TRM2018STJOAO</item>
+        <item> Sao Judas Tadeu - TRM2018STJUDAST</item>
+        <item> Sao Mateus - TRM2018STMATEUS</item>
+        <item> Sao Pedro - TRM2018STPEDRO</item>
+        <item> Sao Tiago Menor - TRM2018STTIAGOM</item>
+        <item> Modulo I - TRM2018MDI</item>
+        <item> Modulo II - TRM2018MDII</item>
+        <item> Modulo III - TRM2018MDIII</item>
 
     </string-array>
     <string name="title_activity_login">Sign in</string>
