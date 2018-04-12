@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
+import com.appcrisma.afi.appcrisma.Helper.ListaAdapter;
 import com.appcrisma.afi.appcrisma.Helper.LocalPreferences;
 import com.appcrisma.afi.appcrisma.Models.Turmas;
 import com.appcrisma.afi.appcrisma.R;
@@ -29,7 +30,7 @@ public class ListaActivity extends AppCompatActivity {
     private DatabaseReference firebase;
     private ValueEventListener eventListener;
     private ArrayAdapter adapter;
-    private ArrayList<String> arrayturmas;
+    private ArrayList<Turmas> arrayturmas;
     private int sysYear;
 
     @Override
@@ -51,7 +52,7 @@ public class ListaActivity extends AppCompatActivity {
 
         arrayturmas = new ArrayList<>();
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayturmas);
+        adapter = new ListaAdapter(this, arrayturmas);
 
         listaAlunos.setAdapter(adapter);
         sysYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -86,8 +87,10 @@ public class ListaActivity extends AppCompatActivity {
                 adapter.clear();
                 for(DataSnapshot dados : dataSnapshot.getChildren()){
                     Turmas turma = dados.getValue(Turmas.class);
-                    adapter.add(turma.getNomeCrismando().toUpperCase());
+                    adapter.add(turma);
                 }
+
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,22 +98,6 @@ public class ListaActivity extends AppCompatActivity {
 
             }
         };
-        listaAlunos.setAdapter(adapter);
-
-
-        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (control) {
-                    view.setBackgroundColor(Color.parseColor("#b040e716"));
-                    control = false;
-                } else {
-                    view.setBackgroundColor(Color.parseColor("#bce71916"));
-                    control = true;
-                }
-            }
-        });
     }
 
     @Override
