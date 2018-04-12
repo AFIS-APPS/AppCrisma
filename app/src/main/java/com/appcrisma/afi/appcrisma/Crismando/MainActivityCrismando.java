@@ -43,7 +43,7 @@ public class MainActivityCrismando extends AppCompatActivity {
 //                        startActivity(new Intent(getApplicationContext(), ConfigsCatequistaActivity.class));
 //                        break;
 //                    }
-                    case 2:{
+                    case 1:{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivityCrismando.this);
                         builder.setIcon(R.drawable.ic_info_black_24dp);
                         builder.setTitle("Deseja mesmo Sair?");

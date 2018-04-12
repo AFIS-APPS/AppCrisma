@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.Helper.ListaAdapter;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -47,6 +49,11 @@ public class ListaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        Calendar currentData = Calendar.getInstance();
+        EditText dataAtual;
+        dataAtual = findViewById(R.id.dataatual);
+        SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+        dataAtual.setText(formataData.format(currentData.getTime()));
 
         ListView listaAlunos = findViewById(R.id.listaAlunos);
 

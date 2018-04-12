@@ -23,17 +23,17 @@
         android:id="@+id/listaAlunos"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="0dp"
-        android:layout_height="421dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="352dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:background="@color/colorAccent"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NomeCabeçalho" />
+
     <Button
         android:id="@+id/buttonConfirmar"
         android:layout_width="wrap_content"
@@ -43,9 +43,96 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Confirmar Presenças"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listaAlunos" />
+
+    <TextView
+
+        android:id="@+id/TurmaView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:text="Turma:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/QualTurmaView"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:text=" "
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/TurmaView"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/Qualdata"
+        android:layout_width="47dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Data:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/dataatual"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/dataatual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toEndOf="@+id/QualTurmaView"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/NomeCabeçalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Nome:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TurmaView" />
+
+    <TextView
+        android:id="@+id/faltaCabeçalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="F"
+        android:textColor="@color/lista_aluno_faltou"
+        app:layout_constraintBottom_toTopOf="@+id/listaAlunos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/presençaCabeçalho" />
+
+    <TextView
+        android:id="@+id/presençaCabeçalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="240dp"
+        android:text="P"
+        android:textColor="@color/lista_aluno_presente"
+        app:layout_constraintBottom_toTopOf="@+id/listaAlunos"
+        app:layout_constraintStart_toEndOf="@+id/NomeCabeçalho"
+        app:layout_constraintTop_toBottomOf="@+id/TurmaView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
