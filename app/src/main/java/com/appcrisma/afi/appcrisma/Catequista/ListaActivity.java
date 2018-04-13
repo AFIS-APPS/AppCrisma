@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.appcrisma.afi.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afi.appcrisma.Helper.ListaAdapter;
 import com.appcrisma.afi.appcrisma.Helper.LocalPreferences;
@@ -49,23 +51,27 @@ public class ListaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        TextView dataAtual = findViewById(R.id.dataatual);
         Calendar currentData = Calendar.getInstance();
-        EditText dataAtual;
-        dataAtual = findViewById(R.id.dataatual);
+
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         dataAtual.setText(formataData.format(currentData.getTime()));
 
         ListView listaAlunos = findViewById(R.id.listaAlunos);
 
-        arrayturmas = new ArrayList<>();
 
+        arrayturmas = new ArrayList<>();
         adapter = new ListaAdapter(this, arrayturmas);
 
         listaAlunos.setAdapter(adapter);
-        sysYear = Calendar.getInstance().get(Calendar.YEAR);
+        sysYear = currentData.get(Calendar.YEAR);
 
 
         if(new LocalPreferences(ListaActivity.this).getTurmaCatequista() != null) {
+            TextView turmaAtual = findViewById(R.id.QualTurmaView);
+            turmaAtual.setText(new LocalPreferences(ListaActivity.this).getTurmaCatequista());
+
             firebase = FirebaseConfig.getDatabaseReference().child("Turmas").child(String.valueOf(sysYear)).child(new LocalPreferences(ListaActivity.this).getTurmaCatequista());
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(ListaActivity.this);
