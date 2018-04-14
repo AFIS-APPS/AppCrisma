@@ -76,8 +76,14 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
                 //Controle de registro de frequencia
                 count = getPosition(turma);
 
+                final Calendar currentData = Calendar.getInstance();
+                SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+
+
                 frequencia[count] = new RegFrequencia();
                 frequencia[count].setNomeCrismando(turma.getNomeCrismando());
+                frequencia[count].setTurma(new LocalPreferences(context).getTurmaCatequista().toString());
+                frequencia[count].setDataRegistro(formataData.format(currentData.getTime()).toString().replace("/", "-"));
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     chkFaltou.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
@@ -89,17 +95,8 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if(isChecked){
                             count = getPosition(turma);
-
-                            Calendar currentData = Calendar.getInstance();
-                            SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
-
                             frequencia[count].setPresente(true);
-                            frequencia[count].setTurma(new LocalPreferences(context).getTurmaCatequista().toString());
-                            frequencia[count].setDataRegistro(formataData.format(currentData.getTime()).toString().replace("/", "-"));
-                            Toast.makeText(context, "O Aluno " + frequencia[count].getNomeCrismando()+" veio", Toast.LENGTH_SHORT).show();
-
-                            salvarFirebase(frequencia[count]);
-
+                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
                             chkFaltou.setChecked(false);
 
                         }
@@ -111,17 +108,8 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if(isChecked){
                             count = getPosition(turma);
-
-                            Calendar currentData = Calendar.getInstance();
-                            SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
-
                             frequencia[count].setPresente(false);
-                            frequencia[count].setTurma(new LocalPreferences(context).getTurmaCatequista().toString());
-                            frequencia[count].setDataRegistro(formataData.format(currentData.getTime()).toString().replace("/", "-"));
-                            Toast.makeText(context, "O Aluno " + frequencia[count].getNomeCrismando()+" faltou", Toast.LENGTH_SHORT).show();
-
-                            salvarFirebase(frequencia[count]);
-
+                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
                             chkPresente.setChecked(false);
                         }
                     }
@@ -130,12 +118,11 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
             return view;
         }
 
-    public void salvarFirebase(RegFrequencia obj){
+    public void salvarFirebase(RegFrequencia obj, String year, Turmas turmas){
         FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(obj.getDataRegistro()).child(obj.getTurma())
                 .child(obj.getNomeCrismando()).setValue(obj);
+       }
 
-//        FirebaseConfig.getDatabaseReference().child("Turmas").child();
-    }
 
 }
 
