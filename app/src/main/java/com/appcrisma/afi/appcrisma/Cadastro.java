@@ -74,6 +74,9 @@ public class Cadastro extends AppCompatActivity {
     protected Thread thread;
     protected String erroExcecao;
     private int sysYear;
+    String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
+            "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
+            "TRM2018STPEDRO", "TRM2018STTIAGOM"};
 
 //    private ModeloCrismando modeloCrismando = new ModeloCrismando();
 
@@ -92,28 +95,7 @@ public class Cadastro extends AppCompatActivity {
 
         databaseReference = FirebaseConfig.getDatabaseReference();
 
-        databaseReference.child("TurmasDisponiveis").orderByChild("CODIGO").
-                addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot data : dataSnapshot.getChildren()){
 
-                           dadosTurmas += data.getValue(true).toString().replace("{CODIGO=","").replace("}","").concat("\n");
-                        }
-                        gravarArquivoTurmasDisponiveis(dadosTurmas);
-                    }
-
-                    @Override
-                    public void onCancelled(final DatabaseError databaseError) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(Cadastro.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-                });
 
     }
 
@@ -121,6 +103,9 @@ public class Cadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+        String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
+        "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
+                "TRM2018STPEDRO", "TRM2018STTIAGOM"};
 
 //      IDENTIFICANDO VIEWS DA TELA DE CADASTRO PELO ID
 
@@ -441,7 +426,7 @@ public class Cadastro extends AppCompatActivity {
                     senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals(""))) {
 
                 if (senhaCrismando.getText().toString().equals(senhaConfirmaCrismando.getText().toString())) {
-                    if(!lerArquivoTurmasDisponiveis(codMatricula.getText().toString())){
+                    if (turmas.equals(codMatricula.getText().toString())){
                         dialog.dismiss();
 
                         runOnUiThread(new Runnable() {
@@ -518,50 +503,7 @@ public class Cadastro extends AppCompatActivity {
         }
     }
 
-    private void gravarArquivoTurmasDisponiveis(String texto){
 
-        try {
-
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter( openFileOutput(NOME_ARQUIVO, Context.MODE_PRIVATE) );
-            outputStreamWriter.write(String.valueOf(texto));
-            outputStreamWriter.close();
-
-        }catch (IOException e){
-           e.printStackTrace();
-        }
-
-    }
-
-    private Boolean lerArquivoTurmasDisponiveis(String confirmaTurma){
-
-        String resultado="";
-
-        try{
-
-            //Abrir o arquivo
-            InputStream arquivo = openFileInput(NOME_ARQUIVO);
-            if( arquivo != null ){
-
-                //ler o arquivo
-                InputStreamReader inputStreamReader = new InputStreamReader( arquivo );
-
-                //Gerar Buffer do arquivo lido
-                BufferedReader bufferedReader = new BufferedReader( inputStreamReader );
-
-                //Recuperar textos do arquivo
-                String linhaArquivo = "";
-                while( (linhaArquivo = bufferedReader.readLine() ) != null ){
-                    if(linhaArquivo.equals(confirmaTurma)){
-                        return true;
-                    }
-                }
-                arquivo.close();
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
 }
 
 

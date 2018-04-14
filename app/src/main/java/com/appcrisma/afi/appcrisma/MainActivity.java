@@ -79,10 +79,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void fraseAleatoria(){
-        String[] frases = {"Eu sou o caminho, e a verdade, e a vida. Ninguém vem ao Pai, senão por mim.",
-                "Amai ao próximo como a ti mesmo, fazei pelos outros o que gostaríamos que os outros fizessem por nós."};
+        String[] frases = {"'Eu sou o caminho, e a verdade, e a vida. Ninguém vem ao Pai, senão por mim.'",
+                "'Amai ao próximo como a ti mesmo, fazei pelos outros o que gostaríamos que os outros fizessem por nós.'",
+                "'Não diga a Deus que você tem um grande problema, diga ao teu problema que você tem um grande Deus'",
+        "'Quando você passar por momentos difíceis e se perguntar onde estará Deus, lembre-se que durante uma prova, o professor está em silêncio.'",
+        "'Seja qual for o seu problema fale com Deus, ele vai ajudar você.'",
+        "'Após a dor vem a alegria, pois Deus é amor e não te deixará sofrer'",
+        "'O mundo pode até fazer você chorar mas Deus te quer sorrindo.'",
+        "'Se permanecerdes em mim e minhas palavras permanecerem em vós, pedireis tudo o que quiserdes e vos será dado. ( João 15, 7)'",
+        "'Basta que sejam jovens para que eu vos ame (S. João Bosco)'",
+        "'Meu filho, não esqueças os meus ensinamentos e guarda no coração os meus preceitos (Pr 3, 1)'",
+        "'Mais felizes são os que ouvem a palavra de Deus e a põem em prática (Lc 11, 28)'",
+                "'No presente permanecem estas três coisas: fé, esperança e amor; mas a maior delas é o amor' (1Cor 13, 13)"};
         Random random = new Random();
-        int value = random.nextInt(2);
+        int value = random.nextInt(12);
         fraseView = (TextView) findViewById(R.id.fraseView);
 //        Log.d("FRASE", String.valueOf(value));
         fraseView.setText(frases[value]);
