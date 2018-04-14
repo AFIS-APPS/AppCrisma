@@ -44,9 +44,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (FirebaseConfig.getFirebaseAutenticacao().getCurrentUser() != null) {
-            loader.getProgressDialog();
+            dialog = loader.loading(LoginActivity.this);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
             codedLogin = Base64Custom.codificaBase64(FirebaseConfig.getFirebaseAutenticacao().getCurrentUser().getEmail());
             verificaUsuarioBase();
+                }
+            }).start();
         } else {
             btnLogin = findViewById(R.id.buttonLogin);
             login = findViewById(R.id.campoEmail);
@@ -123,7 +129,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(dados.getKey().equals("CatequistasCadastrados")){
                         if(dados.getValue().toString().contains(codedLogin)){
+                            finish();
                             startActivity(new Intent(LoginActivity.this, MainActivityCatequista.class));
+                            return;
                         }else{
                             Toast.makeText(LoginActivity.this, "Uruário não existe em nossa Base de Dados!", Toast.LENGTH_LONG).show();
                         }
@@ -151,9 +159,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void aviso() {
-
         Toast.makeText(LoginActivity.this, "Informe seu e-mail e senha!", Toast.LENGTH_SHORT).show();
-
     }
 
 }
