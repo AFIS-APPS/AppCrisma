@@ -35,10 +35,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 
 public class Cadastro extends AppCompatActivity {
     private static final String NOME_ARQUIVO = "turmasDisponiveis.txt";
@@ -50,18 +47,14 @@ public class Cadastro extends AppCompatActivity {
     private ModeloCatequista modeloCatequista;
     private ModeloCrismando modeloCrismando;
     private Loader loader;
-    private DatabaseReference databaseReference;
-    private ProgressDialog dialogLoader;
+    private  DatabaseReference databaseReference;
+    private ProgressDialog dialog;
     protected Thread thread;
     protected String erroExcecao;
     private int sysYear;
-    private ArrayList<String> turmas;
-    private EditText codCadCatqInserido;
-    private String codCadCatq = "Cateq@2018#";
-    private Boolean confereCod = false;
-    private Collection<String> collection = Arrays.asList(new String[]{"TRM2018MDI", "TRM2018MDII", "TRM2018MDIII",
+    String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
             "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
-            "TRM2018STPEDRO", "TRM2018STTIAGOM"});
+            "TRM2018STPEDRO", "TRM2018STTIAGOM"};
 
 //    private ModeloCrismando modeloCrismando = new ModeloCrismando();
 
@@ -74,12 +67,12 @@ public class Cadastro extends AppCompatActivity {
     //    Informações de Cadastro do Catequista
     private EditText nomeCatequista, cepCatequista, enderecoCatequista, telefoneCatequista, emailCatequista, senhaCatequista, confirmaSenhaCatequista;
     String dadosTurmas = "";
-
     @Override
     protected void onStart() {
         super.onStart();
 
         databaseReference = FirebaseConfig.getDatabaseReference();
+
 
 
     }
@@ -88,8 +81,9 @@ public class Cadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
-        turmas = new ArrayList<>();
-        turmas.addAll(collection);
+        String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
+        "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
+                "TRM2018STPEDRO", "TRM2018STTIAGOM"};
 
 //      IDENTIFICANDO VIEWS DA TELA DE CADASTRO PELO ID
 
@@ -114,14 +108,14 @@ public class Cadastro extends AppCompatActivity {
         emailCatequista = findViewById(R.id.emailCatequista);
         senhaCatequista = findViewById(R.id.senhaCatequista);
         confirmaSenhaCatequista = findViewById(R.id.catequistaConfirmaSenha);
-
-//			Caixas de Texto Formatadas
         SimpleMaskFormatter telcq = new SimpleMaskFormatter("(NN) NNNNN-NNNN");
         MaskTextWatcher mtwtelcq = new MaskTextWatcher(telefoneCatequista, telcq);
         telefoneCatequista.addTextChangedListener(mtwtelcq);
         SimpleMaskFormatter cepcq = new SimpleMaskFormatter("NNNNN-NNN");
         MaskTextWatcher mtwcepcq = new MaskTextWatcher(cepCatequista, cepcq);
         cepCatequista.addTextChangedListener(mtwcepcq);
+
+
 
 
 //            + CAMPOS CRISMANDO
@@ -138,7 +132,6 @@ public class Cadastro extends AppCompatActivity {
         codMatricula = findViewById(R.id.codMatriculaCrismando);
         responsavelCrismando = findViewById(R.id.nomeResponsavelCrismando);
         telefonePaiResponsavelCrismando = findViewById(R.id.telefonePaisResponsavelCrismando);
-
 //        Caixas de Texto Formatadas
         SimpleMaskFormatter dtc = new SimpleMaskFormatter("NN/NN/NNNN");
         MaskTextWatcher mtwdtc = new MaskTextWatcher(dataCrismando, dtc);
@@ -165,14 +158,12 @@ public class Cadastro extends AppCompatActivity {
                     viewCatequista.setVisibility(View.VISIBLE);
                     catequista = true;
                     crismando = false;
-                    confereCod = false;
                 }
                 if (radioCrismando.isChecked()) {
                     viewCatequista.setVisibility(View.GONE);
                     viewCrismando.setVisibility(View.VISIBLE);
                     catequista = false;
                     crismando = true;
-                    confereCod = true;
                 }
             }
         });
@@ -215,41 +206,39 @@ public class Cadastro extends AppCompatActivity {
         finalizarCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conferirCódigo();
-                if(confereCod){
-                    dialogLoader = loader.loading(Cadastro.this);
-                    modeloCatequista = new ModeloCatequista();
-                    modeloCrismando = new ModeloCrismando();
+                dialog = loader.loading(Cadastro.this);
+                modeloCatequista = new ModeloCatequista();
+                modeloCrismando = new ModeloCrismando();
 
 
-                    thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-//                            finalizarCadastro.cancelLongPress();
-//                            finalizarCadastro.cancelPendingInputEvents();
+                thread=new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                            if (tipoUsuarioCadastro().equals(catequista)) {
-                                capturaInformacoes();
-                                if (modeloCatequista.getEmail() != null && modeloCatequista.getSenha() != null) {
-                                    criaUsuario(modeloCatequista.getEmail(), modeloCatequista.getSenha());
-                                    if (modeloCatequista.salvarCadastro() == true) {
-                                        finish();
-                                    }
-                                }
-                            }
-                            if (tipoUsuarioCadastro().equals(crismando)) {
-                                capturaInformacoes();
-                                if (modeloCrismando.getEmail() != null && modeloCrismando.getSenha() != null) {
-                                    criaUsuario(modeloCrismando.getEmail(), modeloCrismando.getSenha());
-                                    if (modeloCrismando.salvarCadastro() == true) {
-                                        finish();
-                                    }
-                                }
-                            }
+
+                if (tipoUsuarioCadastro().equals(catequista)) {
+                    capturaInformacoes();
+                    if (modeloCatequista.getEmail() != null && modeloCatequista.getSenha() != null) {
+                        criaUsuario(modeloCatequista.getEmail(), modeloCatequista.getSenha());
+                        if (modeloCatequista.salvarCadastro() == true) {
+
+                            finish();
                         }
-                    });
-                    thread.start();
+                    }
                 }
+                if (tipoUsuarioCadastro().equals(crismando)) {
+                    capturaInformacoes();
+                    if (modeloCrismando.getEmail() != null && modeloCrismando.getSenha() != null) {
+                        criaUsuario(modeloCrismando.getEmail(), modeloCrismando.getSenha());
+                        if (modeloCrismando.salvarCadastro() == true) {
+
+                            finish();
+                        }
+                    }
+                }
+            }
+        });
+                thread.start();
             }
 
         });
@@ -281,6 +270,7 @@ public class Cadastro extends AppCompatActivity {
                     } else if (tipoUsuarioCadastro().equals(crismando)) {
                         String codedMail = Base64Custom.codificaBase64(email);
 
+
                         bdContas.setChaveId(codedMail);
                         bdContas.setNomeUser(modeloCrismando.getNome());
 
@@ -303,12 +293,12 @@ public class Cadastro extends AppCompatActivity {
 
                         if (catequista == true) {
                             startActivity(new Intent(Cadastro.this, MainActivityCatequista.class));
-                            dialogLoader.dismiss();
+                            dialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Olá Sr(a) " + modeloCatequista.getNome(),
                                     Toast.LENGTH_LONG).show();
-                        } else if (crismando == true) {
+                        }else if(crismando == true){
                             startActivity(new Intent(Cadastro.this, MainActivityCrismando.class));
-                            dialogLoader.dismiss();
+                            dialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Olá Sr(a) " + modeloCrismando.getNome(),
                                     Toast.LENGTH_LONG).show();
                         }
@@ -316,7 +306,7 @@ public class Cadastro extends AppCompatActivity {
 
 
                 } else {
-                    dialogLoader.dismiss();
+                    dialog.dismiss();
                     erroExcecao = "";
 
                     try {
@@ -375,7 +365,8 @@ public class Cadastro extends AppCompatActivity {
                     modeloCatequista.setSenha(senhaCatequista.getText().toString());
                     modeloCatequista.setConfirmaSenha(confirmaSenhaCatequista.getText().toString());
                 } else {
-                    dialogLoader.dismiss();
+                    dialog.dismiss();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -391,10 +382,11 @@ public class Cadastro extends AppCompatActivity {
                             builder.show();
                         }
                     });
+
                 }
 
             } else {
-                dialogLoader.dismiss();
+                dialog.dismiss();
 
                 finalizarCadastro.cancelPendingInputEvents();
                 runOnUiThread(new Runnable() {
@@ -409,12 +401,28 @@ public class Cadastro extends AppCompatActivity {
 
             if (!(nomeCrismando.getText().toString().equals("") || celularCrismando.getText().toString().equals("") || enderecoCrismando.getText().toString().equals("")
                     || usuarioCrismando.getText().toString().equals("") || senhaCrismando.getText().toString().equals("") ||
-                    senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals("")
-                    || telefonePaiResponsavelCrismando.getText().toString().equals(""))) {
+                    senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals(""))) {
 
                 if (senhaCrismando.getText().toString().equals(senhaConfirmaCrismando.getText().toString())) {
-                    if (turmas.contains(codMatricula.getText().toString())) {
+                    if (turmas.equals(codMatricula.getText().toString())){
+                        dialog.dismiss();
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
+                                builder.setTitle("CÓDIGO TURMA!");
+                                builder.setMessage("Turma não existe ou Código Inválido!");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        return;
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
+                    }else {
                         modeloCrismando.setNome(nomeCrismando.getText().toString());
                         modeloCrismando.setTelefone(celularCrismando.getText().toString());
                         modeloCrismando.setEndereco(enderecoCrismando.getText().toString());
@@ -427,29 +435,9 @@ public class Cadastro extends AppCompatActivity {
                         modeloCrismando.setSenha(senhaCrismando.getText().toString());
                         modeloCrismando.setConfirmaSenha(senhaConfirmaCrismando.getText().toString());
                         modeloCrismando.setNomeResponsavel(responsavelCrismando.getText().toString());
-
-                    } else {
-                        dialogLoader.dismiss();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
-                                builder.setTitle("ERRO!");
-                                builder.setMessage("Código de Turma inválido! Tente novamente ou procure por um Catequista!");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-                                        return;
-                                    }
-                                });
-                                builder.show();
-
-                            }
-                        });
-
-                       }
+                    }
                 } else {
-                    dialogLoader.dismiss();
+                    dialog.dismiss();
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -472,7 +460,7 @@ public class Cadastro extends AppCompatActivity {
                 }
 
             } else {
-                dialogLoader.dismiss();
+                dialog.dismiss();
                 finalizarCadastro.cancelPendingInputEvents();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -493,31 +481,7 @@ public class Cadastro extends AppCompatActivity {
         }
     }
 
-    private void conferirCódigo() {
-        if(confereCod == false){
-            AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
-            builder.setTitle("Código de Permissão!");
-            builder.setMessage("Informe o código para se cadastrar como Catequista!");
-            codCadCatqInserido = new EditText(Cadastro.this);
-            builder.setView(codCadCatqInserido);
-            builder.setPositiveButton("Conferir e Cadastrar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int i) {
-                    if (codCadCatq.equals(codCadCatqInserido.getText().toString())) {
-                        confereCod = true;
 
-                    } else {
-                        dialog.dismiss();
-                        Toast.makeText(Cadastro.this, "Código inserido inválido! Tente novamente", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            });
-            builder.show();
-        }
-
-    }
 }
-
 
 

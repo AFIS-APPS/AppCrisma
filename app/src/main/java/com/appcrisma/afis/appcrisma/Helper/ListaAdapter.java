@@ -56,16 +56,16 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
             if( turmas != null ){
 
                 // inicializar objeto para montagem da view
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 // Monta view a partir do xml
                 view = inflater.inflate(R.layout.list_chamada, parent, false);
 
                 // recupera elemento para exibição
-                TextView nome = (TextView) view.findViewById(R.id.LstNome);
-                TextView nfaltas = (TextView) view.findViewById(R.id.LstFaltas);
-                final CheckBox chkPresente = (CheckBox) view.findViewById(R.id.checkBoxPresente);
-                final CheckBox chkFaltou = (CheckBox) view.findViewById(R.id.checkBoxFaltou);
+                TextView nome = view.findViewById(R.id.LstNome);
+                TextView nfaltas = view.findViewById(R.id.LstFaltas);
+                final CheckBox chkPresente = view.findViewById(R.id.checkBoxPresente);
+                final CheckBox chkFaltou = view.findViewById(R.id.checkBoxFaltou);
 
                 //monta a exibição de acordo com os dados passados
                 final Turmas turma = turmas.get( position );

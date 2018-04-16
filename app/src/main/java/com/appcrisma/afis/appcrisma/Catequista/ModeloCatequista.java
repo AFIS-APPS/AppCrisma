@@ -1,8 +1,5 @@
 package com.appcrisma.afis.appcrisma.Catequista;
 
-import android.widget.Toast;
-
-import com.appcrisma.afis.appcrisma.Cadastro;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.google.firebase.database.Exclude;
 

@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fraseAleatoria();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                 "'No presente permanecem estas três coisas: fé, esperança e amor; mas a maior delas é o amor' (1Cor 13, 13)"};
         Random random = new Random();
         int value = random.nextInt(12);
-        fraseView = (TextView) findViewById(R.id.fraseView);
+        fraseView = findViewById(R.id.fraseView);
 //        Log.d("FRASE", String.valueOf(value));
         fraseView.setText(frases[value]);
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

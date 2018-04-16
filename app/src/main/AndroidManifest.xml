@@ -27,11 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Cadastro"
-            android:label="Criar Conta" />
         <activity android:name=".Catequista.MainActivityCatequista" />
         <activity android:name=".Catequista.AvisosActivity" />
+        <activity android:name=".Cadastro"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
