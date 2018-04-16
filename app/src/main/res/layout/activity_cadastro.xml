@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/fundo_cadastro"
-    tools:context="com.appcrisma.afi.appcrisma.Cadastro">
+    tools:context="com.appcrisma.afis.appcrisma.Cadastro">
 <android.support.constraint.ConstraintLayout android:layout_height="match_parent"
     android:layout_width="match_parent">
 

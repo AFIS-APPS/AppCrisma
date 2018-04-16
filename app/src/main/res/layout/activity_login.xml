@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundo_cadastro"
-    tools:context="com.appcrisma.afi.appcrisma.LoginActivity">
+    tools:context="com.appcrisma.afis.appcrisma.LoginActivity">
 
     <TextView
         android:id="@+id/textViewEntrar"
