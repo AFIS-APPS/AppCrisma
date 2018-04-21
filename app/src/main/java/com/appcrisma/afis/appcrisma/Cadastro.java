@@ -35,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class Cadastro extends AppCompatActivity {
@@ -51,12 +53,12 @@ public class Cadastro extends AppCompatActivity {
     private ProgressDialog dialog;
     protected Thread thread;
     protected String erroExcecao;
+    protected boolean controleCadCat = false;
     private int sysYear;
-    String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
-            "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
-            "TRM2018STPEDRO", "TRM2018STTIAGOM"};
+    protected ArrayList turmas;
 
-//    private ModeloCrismando modeloCrismando = new ModeloCrismando();
+
+
 
 //    Informações de Cadastro do Crismando
 
@@ -81,9 +83,11 @@ public class Cadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
-        String[] turmas = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
+        String[] trms = {"TRM2018MDI","TRM2018MDII", "TRM2018MDIII",
         "TRM2018STANDRE", "TRM2018STJOAO", "TRM2018STJUDAST", "TRM2018STMATEUS",
                 "TRM2018STPEDRO", "TRM2018STTIAGOM"};
+        turmas = new ArrayList(Arrays.asList(trms));
+
 
 //      IDENTIFICANDO VIEWS DA TELA DE CADASTRO PELO ID
 
@@ -144,8 +148,6 @@ public class Cadastro extends AppCompatActivity {
         telefonePaiResponsavelCrismando.addTextChangedListener(mtwtelr);
 
 
-
-
 //      CHECANDO TIPO DE USUÁRIO A SER CADASTRADO
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -158,12 +160,14 @@ public class Cadastro extends AppCompatActivity {
                     viewCatequista.setVisibility(View.VISIBLE);
                     catequista = true;
                     crismando = false;
+                    controleCadCat = false;
                 }
                 if (radioCrismando.isChecked()) {
                     viewCatequista.setVisibility(View.GONE);
                     viewCrismando.setVisibility(View.VISIBLE);
                     catequista = false;
                     crismando = true;
+                    controleCadCat = true;
                 }
             }
         });
@@ -206,40 +210,44 @@ public class Cadastro extends AppCompatActivity {
         finalizarCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = loader.loading(Cadastro.this);
+
+                if (controleCadCat){
+                    dialog = loader.loading(Cadastro.this);
                 modeloCatequista = new ModeloCatequista();
                 modeloCrismando = new ModeloCrismando();
 
 
-                thread=new Thread(new Runnable() {
+                thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
 
 
-                if (tipoUsuarioCadastro().equals(catequista)) {
-                    capturaInformacoes();
-                    if (modeloCatequista.getEmail() != null && modeloCatequista.getSenha() != null) {
-                        criaUsuario(modeloCatequista.getEmail(), modeloCatequista.getSenha());
-                        if (modeloCatequista.salvarCadastro() == true) {
+                        if (tipoUsuarioCadastro().equals(catequista)) {
+                            capturaInformacoes();
+                            if (modeloCatequista.getEmail() != null && modeloCatequista.getSenha() != null) {
+                                criaUsuario(modeloCatequista.getEmail(), modeloCatequista.getSenha());
+                                if (modeloCatequista.salvarCadastro() == true) {
+                                    finish();
+                                }
+                            }
+                        }
+                        if (tipoUsuarioCadastro().equals(crismando)) {
+                            capturaInformacoes();
+                            if (modeloCrismando.getEmail() != null && modeloCrismando.getSenha() != null) {
+                                criaUsuario(modeloCrismando.getEmail(), modeloCrismando.getSenha());
+                                if (modeloCrismando.salvarCadastro() == true) {
 
-                            finish();
+                                    finish();
+                                }
+                            }
                         }
                     }
-                }
-                if (tipoUsuarioCadastro().equals(crismando)) {
-                    capturaInformacoes();
-                    if (modeloCrismando.getEmail() != null && modeloCrismando.getSenha() != null) {
-                        criaUsuario(modeloCrismando.getEmail(), modeloCrismando.getSenha());
-                        if (modeloCrismando.salvarCadastro() == true) {
-
-                            finish();
-                        }
-                    }
-                }
-            }
-        });
+                });
                 thread.start();
-            }
+            }else{
+                    controleCadCat();
+                }
+        }
 
         });
     }
@@ -302,6 +310,10 @@ public class Cadastro extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Olá Sr(a) " + modeloCrismando.getNome(),
                                     Toast.LENGTH_LONG).show();
                         }
+                    }else {
+                        dialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Não foi possível se cadastrar. Tente novamente mais tarde!",
+                                Toast.LENGTH_LONG).show();
                     }
 
 
@@ -355,35 +367,36 @@ public class Cadastro extends AppCompatActivity {
                     cepCatequista.getText().toString().equals("") || emailCatequista.getText().toString().equals("") || senhaCatequista.getText().toString().equals("") ||
                     confirmaSenhaCatequista.getText().toString().equals(""))) {
 
-                if (senhaCatequista.getText().toString().equals(confirmaSenhaCatequista.getText().toString())) {
+                    if (senhaCatequista.getText().toString().equals(confirmaSenhaCatequista.getText().toString())) {
+                        modeloCatequista.setNome(nomeCatequista.getText().toString());
+                        modeloCatequista.setTelefone(telefoneCatequista.getText().toString());
+                        modeloCatequista.setEndereco(enderecoCatequista.getText().toString());
+                        modeloCatequista.setCep(cepCatequista.getText().toString());
+                        modeloCatequista.setEmail(emailCatequista.getText().toString());
+                        modeloCatequista.setSenha(senhaCatequista.getText().toString());
+                        modeloCatequista.setConfirmaSenha(confirmaSenhaCatequista.getText().toString());
+                    } else {
 
-                    modeloCatequista.setNome(nomeCatequista.getText().toString());
-                    modeloCatequista.setTelefone(telefoneCatequista.getText().toString());
-                    modeloCatequista.setEndereco(enderecoCatequista.getText().toString());
-                    modeloCatequista.setCep(cepCatequista.getText().toString());
-                    modeloCatequista.setEmail(emailCatequista.getText().toString());
-                    modeloCatequista.setSenha(senhaCatequista.getText().toString());
-                    modeloCatequista.setConfirmaSenha(confirmaSenhaCatequista.getText().toString());
-                } else {
-                    dialog.dismiss();
+                        dialog.dismiss();
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
-                            builder.setTitle("ERRO!");
-                            builder.setMessage("SENHAS INFORMADAS NÃO CONFEREM!");
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    return;
-                                }
-                            });
-                            builder.show();
-                        }
-                    });
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
+                                builder.setTitle("ERRO!");
+                                builder.setMessage("SENHAS INFORMADAS NÃO CONFEREM!");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        return;
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
 
-                }
+                    }
+
 
             } else {
                 dialog.dismiss();
@@ -404,9 +417,8 @@ public class Cadastro extends AppCompatActivity {
                     senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals(""))) {
 
                 if (senhaCrismando.getText().toString().equals(senhaConfirmaCrismando.getText().toString())) {
-                    if (turmas.equals(codMatricula.getText().toString())){
+                    if (!turmas.contains(codMatricula.getText().toString())){
                         dialog.dismiss();
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -455,8 +467,6 @@ public class Cadastro extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
 
             } else {
@@ -472,6 +482,39 @@ public class Cadastro extends AppCompatActivity {
             }
         }
     }
+
+
+    private void controleCadCat(){
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Cadastro.this);
+                builder.setTitle("Código do Catequista!");
+
+                final EditText codCateq = new EditText(Cadastro.this);
+                builder.setView(codCateq);
+                builder.setPositiveButton("Conferir e Cadastrar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if(codCateq.getText().toString().equals("Cateq@2018#")){
+                            Toast.makeText(Cadastro.this,"Código válido!",Toast.LENGTH_SHORT).show();
+                            controleCadCat = true;
+                            finalizarCadastro.callOnClick();
+
+                        }else{
+                            Toast.makeText(Cadastro.this,"Código Inválido! Tente Novamente!", Toast.LENGTH_LONG).show();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        dialog.dismiss();
+                        return;
+                    }
+                });
+                builder.show();
+            }
+
 
     private Boolean tipoUsuarioCadastro() {
         if (catequista) {
