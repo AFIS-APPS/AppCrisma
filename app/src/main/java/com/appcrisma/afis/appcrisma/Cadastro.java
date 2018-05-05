@@ -294,6 +294,7 @@ public class Cadastro extends AppCompatActivity {
                         turmas.setNomeCrismando(modeloCrismando.getNome());
                         turmas.setTelefoneCrismando(modeloCrismando.getTelefone());
                         turmas.setTurma(modeloCrismando.getCodMatricula());
+                        turmas.setTelefonePaiCrismando(modeloCrismando.getFonePaiResponsavel());
                         databaseReference.child("Turmas").child(String.valueOf(sysYear)).child(turmas.getTurma()).child(turmas.getNomeCrismando()).setValue(turmas);
                     }
 

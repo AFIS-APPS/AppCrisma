@@ -4,7 +4,7 @@ import com.google.firebase.database.Exclude;
 
 public class Turmas {
 
-    String turma, nomeCrismando, telefoneCrismando;
+    String turma, nomeCrismando, telefoneCrismando, telefonePaiCrismando;
     int numFaltas;
 
     public Turmas(){
@@ -41,5 +41,13 @@ public class Turmas {
 
     public void setNumFaltas(int numFaltas) {
         this.numFaltas = numFaltas;
+    }
+
+    public String getTelefonePaiCrismando() {
+        return telefonePaiCrismando;
+    }
+
+    public void setTelefonePaiCrismando(String telefonePaiCrismando) {
+        this.telefonePaiCrismando = telefonePaiCrismando;
     }
 }

@@ -20,17 +20,23 @@ public class ConfigsCatequistaActivity extends AppCompatActivity {
     private TableLayout tableTurmas;
     private TextView turmaSelecionada;
     private String[] parser;
+    private Spinner spinnerTurmaCat;
+    private String selected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configs_catequista);
+
         turmaSelecionada = findViewById(R.id.textTurmaSelecionada);
+        spinnerTurmaCat = findViewById(R.id.spinnerTurmaCat);
+
         if(new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista() != null){
             turmaSelecionada.setText(new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista());
+            selected = new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista();
         }
 
-        Spinner spinnerTurmaCat = findViewById(R.id.spinnerTurmaCat);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.selecionarTurmaCat, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTurmaCat.setAdapter(adapter);
@@ -38,7 +44,7 @@ public class ConfigsCatequistaActivity extends AppCompatActivity {
         spinnerTurmaCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selected = null;
+
                 switch (position){
 
                     case 0:{
