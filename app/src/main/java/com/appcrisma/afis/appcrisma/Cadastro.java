@@ -415,7 +415,8 @@ public class Cadastro extends AppCompatActivity {
 
             if (!(nomeCrismando.getText().toString().equals("") || celularCrismando.getText().toString().equals("") || enderecoCrismando.getText().toString().equals("")
                     || usuarioCrismando.getText().toString().equals("") || senhaCrismando.getText().toString().equals("") ||
-                    senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals(""))) {
+                    senhaConfirmaCrismando.getText().toString().equals("") || codMatricula.getText().toString().equals("") || maeCrismando.getText().toString().equals("")
+                    || telefonePaiResponsavelCrismando.getText().toString().equals(""))) {
 
                 if (senhaCrismando.getText().toString().equals(senhaConfirmaCrismando.getText().toString())) {
                     if (!turmas.contains(codMatricula.getText().toString())){
