@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColorLink="@color/colorPrimary"
         android:theme="@style/AppTheme"
         app:layout_constraintStart_toEndOf="@+id/textView6"
