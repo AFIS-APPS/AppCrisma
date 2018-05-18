@@ -283,23 +283,6 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/celularCrismandoView"
                 app:layout_constraintStart_toEndOf="@+id/celularCrismandoView" />
 
-
-
-            <EditText
-                android:id="@+id/nomePaiCrismando2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="5dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/nomePaiCrismandoView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nomePaiCrismandoView" />
-
             <TextView
                 android:id="@+id/codMatriculaCrismandoView"
                 android:layout_width="wrap_content"
@@ -425,7 +408,7 @@
                 android:layout_marginEnd="70dp"
                 android:layout_marginStart="5dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/usuarioCrismandoView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -608,7 +591,7 @@
                 android:layout_marginEnd="70dp"
                 android:layout_marginStart="5dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/emailCatequistaView"
                 app:layout_constraintEnd_toEndOf="parent"
