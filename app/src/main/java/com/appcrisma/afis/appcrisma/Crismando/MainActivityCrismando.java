@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.appcrisma.afis.appcrisma.Catequista.MainActivityCatequista;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afis.appcrisma.R;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
+
+import java.lang.reflect.Array;
 
 public class MainActivityCrismando extends AppCompatActivity {
     CircleMenu circleMenu;
@@ -32,7 +38,9 @@ public class MainActivityCrismando extends AppCompatActivity {
             public void onMenuSelected(int i) {
                 switch (i) {
                     case 0: {
-                        startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
+
+                        Toast.makeText(MainActivityCrismando.this, "Em Breve!", Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
                         break;
                     }
 //                    case 1: {

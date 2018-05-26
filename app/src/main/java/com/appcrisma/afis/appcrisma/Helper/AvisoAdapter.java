@@ -24,12 +24,13 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
     private boolean[] aux;
     private TextView autorAtual, dataAtual, titulo, corpo;
     private ImageButton btExpand;
+    private int size;
 
     public AvisoAdapter(Context c, ArrayList<Avisos> objects) {
         super(c, 0, objects);
         this.avisos = objects;
         this.context = c;
-
+        this.size = objects.size();
     }
 
     @Override
@@ -46,24 +47,28 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         View view = null;
-        aux = new boolean[1000];
+        aux = new boolean[size];
         aux[position] = false;
 
         // Verifica se a lista está vazia
+
         if( avisos != null ){
 
-            // inicializar objeto para montagem da view
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if(convertView == null){
+                // inicializar objeto para montagem da view
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            // Monta view a partir do xml
-            view = inflater.inflate(R.layout.list_avisos, parent, false);
+                // Monta view a partir do xml
+                view = inflater.inflate(R.layout.list_avisos, parent, false);
 
-            // recupera elemento para exibição
-           autorAtual = view.findViewById(R.id.modelAutAvisoField);
-           dataAtual = view.findViewById(R.id.modelDatAvisoField);
-           titulo = view.findViewById(R.id.modelTitAviso);
-           corpo = view.findViewById(R.id.modelCrpAvisoField);
-           btExpand = view.findViewById(R.id.imgBtExpand);
+                // recupera elemento para exibição
+                autorAtual = view.findViewById(R.id.modelAutAvisoField);
+                dataAtual = view.findViewById(R.id.modelDatAvisoField);
+                titulo = view.findViewById(R.id.modelTitAviso);
+                corpo = view.findViewById(R.id.modelCrpAvisoField);
+            }else{
+                view = convertView;
+            }
 
             //monta a exibição de acordo com os dados passados
             Avisos aviso = avisos.get( position );

@@ -40,6 +40,7 @@
         <activity android:name=".Crismando.AvisosActivity" />
         <activity android:name=".Catequista.ConfigsCatequistaActivity" />
         <activity android:name=".Catequista.ListaActivity" />
+        <activity android:name=".Catequista.AdicionarAviso" />
         <activity android:name=".Catequista.EnviarMensagem"></activity>
     </application>
 

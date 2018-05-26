@@ -19,18 +19,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listViewAvisos"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcListView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avisosView" />
+        app:layout_constraintTop_toBottomOf="@+id/avisosView"
+        android:layout_height="0dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+<!--<ListView-->
+        <!--android:id="@+id/listViewAvisos"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/avisosView" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbAdcAviso"

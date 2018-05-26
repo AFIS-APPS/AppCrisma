@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afis.appcrisma.Models.AtualizarCadastro;
@@ -42,6 +43,7 @@ public class MainActivityCatequista extends AppCompatActivity {
             public void onMenuSelected(int i) {
                 switch (i) {
                     case 0: {
+                        //Toast.makeText(MainActivityCatequista.this, "Em Breve!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
                         break;
                     }

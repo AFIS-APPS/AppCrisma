@@ -40,7 +40,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 public class Cadastro extends AppCompatActivity {
-    private static final String NOME_ARQUIVO = "turmasDisponiveis.txt";
     private ScrollView viewCatequista, viewCrismando;
     private Button finalizarCadastro;
     private RadioButton radioCatequista, radioCrismando;
@@ -127,7 +126,7 @@ public class Cadastro extends AppCompatActivity {
         nomeCrismando = findViewById(R.id.nomeCrismando);
         dataCrismando = findViewById(R.id.dataCrismando);
         celularCrismando = findViewById(R.id.celularCrismando);
-        paiCrismando = findViewById(R.id.nomePaiCrismando2);
+//        paiCrismando = findViewById(R.id.nomePaiCrismando2);
         maeCrismando = findViewById(R.id.nomeMaeCrismando);
         enderecoCrismando = findViewById(R.id.enderecoCrismando);
         usuarioCrismando = findViewById(R.id.usuarioCrismando);

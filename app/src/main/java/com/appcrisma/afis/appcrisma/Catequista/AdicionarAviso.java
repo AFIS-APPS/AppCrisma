@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afis.appcrisma.Helper.Base64Custom;
@@ -71,6 +72,8 @@ public class AdicionarAviso extends AppCompatActivity {
                     throw e;
                 }finally {
                     limparCampos();
+                    Toast.makeText(AdicionarAviso.this, "Aviso Adicionado com Sucesso!", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });
