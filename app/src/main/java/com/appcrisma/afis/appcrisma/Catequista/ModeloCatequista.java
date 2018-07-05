@@ -17,7 +17,7 @@ public class ModeloCatequista {
     String cep;
     String endereco;
 
-    public ModeloCatequista(){
+    public ModeloCatequista() {
 
     }
 
@@ -91,12 +91,12 @@ public class ModeloCatequista {
         this.confirmaSenha = confirmaSenha;
     }
 
-    public Boolean salvarCadastro(){
+    public Boolean salvarCadastro() {
 
         try {
             FirebaseConfig.getDatabaseReference().child("Usuarios").child("Catequistas").child(getId()).setValue(this);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

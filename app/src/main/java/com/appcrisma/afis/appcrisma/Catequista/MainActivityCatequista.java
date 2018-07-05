@@ -1,18 +1,13 @@
 package com.appcrisma.afis.appcrisma.Catequista;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
-import com.appcrisma.afis.appcrisma.Models.AtualizarCadastro;
 import com.appcrisma.afis.appcrisma.R;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
@@ -37,7 +32,6 @@ public class MainActivityCatequista extends AppCompatActivity {
         circleMenu.addSubMenu(Color.parseColor("#bce71916"), R.drawable.icone_sair);
 
 
-
         circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
             @Override
             public void onMenuSelected(int i) {
@@ -55,13 +49,13 @@ public class MainActivityCatequista extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), ConfigsCatequistaActivity.class));
                         break;
                     }
-                    case 3:{
+                    case 3: {
 
                         startActivity(new Intent(getApplicationContext(), EnviarMensagem.class));
                         break;
 
                     }
-                    case 4:{
+                    case 4: {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivityCatequista.this);
                         builder.setIcon(R.drawable.ic_info_black_24dp);
                         builder.setTitle("Deseja mesmo Sair?");

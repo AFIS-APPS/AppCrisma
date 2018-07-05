@@ -1,12 +1,13 @@
 package com.appcrisma.afis.appcrisma.Models;
 
 import android.telephony.SmsManager;
-import android.widget.Toast;
 
 public class Mensagem {
 
     String telefone, mensagem;
 
+    public Mensagem() {
+    }
 
     public Mensagem(String telefone, String mensagem) {
         this.telefone = telefone;
@@ -29,16 +30,16 @@ public class Mensagem {
         this.mensagem = mensagem;
     }
 
-    public boolean enviaSMS(String telefone, String mensagem){
+    public boolean enviaSMS(String telefone, String mensagem) {
 
-        try{
+        try {
 
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(telefone, null, mensagem, null, null);
 
             return true;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

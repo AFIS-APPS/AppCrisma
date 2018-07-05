@@ -3,7 +3,8 @@ package com.appcrisma.afis.appcrisma.Models;
 public class RegFrequencia {
     private String nomeCrismando, turma, dataRegistro;
     private Boolean presente;
-    public void RegFrequencia(){
+
+    public void RegFrequencia() {
         nomeCrismando = "";
         turma = "";
         presente = false;

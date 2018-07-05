@@ -22,9 +22,11 @@ public class ModeloCrismando {
     String telefone;
     String cep;
     String endereco;
-    public ModeloCrismando(){
+
+    public ModeloCrismando() {
 
     }
+
     @Exclude
     public String getId() {
         return id;
@@ -88,6 +90,10 @@ public class ModeloCrismando {
         return endereco;
     }
 
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     public String getDataNasc() {
         return dataNasc;
     }
@@ -136,16 +142,12 @@ public class ModeloCrismando {
         this.codMatricula = codMatricula;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public Boolean salvarCadastro(){
+    public Boolean salvarCadastro() {
 
         try {
             FirebaseConfig.getDatabaseReference().child("Usuarios").child("Crismando").child(getId()).setValue(this);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

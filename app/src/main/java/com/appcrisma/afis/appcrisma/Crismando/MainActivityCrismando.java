@@ -4,19 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.appcrisma.afis.appcrisma.Catequista.MainActivityCatequista;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afis.appcrisma.R;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
-
-import java.lang.reflect.Array;
 
 public class MainActivityCrismando extends AppCompatActivity {
     CircleMenu circleMenu;
@@ -39,8 +34,7 @@ public class MainActivityCrismando extends AppCompatActivity {
                 switch (i) {
                     case 0: {
 
-                        Toast.makeText(MainActivityCrismando.this, "Em Breve!", Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
+                        startActivity(new Intent(getApplicationContext(), AvisosActivity.class));
                         break;
                     }
 //                    case 1: {
@@ -51,7 +45,7 @@ public class MainActivityCrismando extends AppCompatActivity {
 //                        startActivity(new Intent(getApplicationContext(), ConfigsCatequistaActivity.class));
 //                        break;
 //                    }
-                    case 1:{
+                    case 1: {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivityCrismando.this);
                         builder.setIcon(R.drawable.ic_info_black_24dp);
                         builder.setTitle("Deseja mesmo Sair?");

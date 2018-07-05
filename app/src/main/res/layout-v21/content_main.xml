@@ -23,42 +23,42 @@
         android:text=" "
         android:textColor="#fff"
         android:textSize="20sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/textViewConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/cadastro"
         android:shadowColor="#fff"
         android:shadowDx="0.5"
         android:shadowDy="0.5"
         android:shadowRadius="1"
+        android:text="@string/cadastro"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/cadastreView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
-        android:text="@string/cadastre"
-        android:textColor="#000"
-        android:textStyle="bold|italic"
         android:shadowColor="#ffff"
         android:shadowDx="0.5"
         android:shadowDy="0.5"
         android:shadowRadius="1"
+        android:text="@string/cadastre"
+        android:textColor="#000"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewConta"
-        android:layout_marginLeft="4dp" />
+        app:layout_constraintStart_toEndOf="@+id/textViewConta" />
 
     <Button
         android:id="@+id/buttonEntrar"

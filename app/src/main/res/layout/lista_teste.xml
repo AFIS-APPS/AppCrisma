@@ -18,7 +18,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/LstFaltasTxt"
-        app:layout_constraintEnd_toStartOf="@+id/listP"
+        app:layout_constraintEnd_toStartOf="@+id/checkBoxPresente"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,59 +46,29 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/LstFaltasTxt"
         app:layout_constraintStart_toEndOf="@+id/LstFaltasTxt" />
 
-    <Button
-        android:id="@+id/listP"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
+    <RadioGroup
+        android:layout_width="71dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="8dp"
-        android:background="@color/lista_aluno_presente"
-        android:text="P"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listF"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/listF"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/lista_aluno_faltou"
-        android:text="F"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:id="@+id/btChamada"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <RadioButton
+            android:id="@+id/rbPresente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <!--<CheckBox-->
-        <!--android:id="@+id/checkBoxPresente"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginEnd="5dp"-->
-        <!--android:checked="false"-->
-        <!--android:textSize="10sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/checkBoxFaltou"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="1.0" />-->
+        <RadioButton
+            android:id="@+id/rbFaltou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </RadioGroup>
 
-    <!--<CheckBox-->
-        <!--android:id="@+id/checkBoxFaltou"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:checked="false"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="1.0" />-->
 
 </android.support.constraint.ConstraintLayout>

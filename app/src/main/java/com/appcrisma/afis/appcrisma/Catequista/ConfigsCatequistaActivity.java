@@ -1,9 +1,7 @@
 package com.appcrisma.afis.appcrisma.Catequista;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,7 +29,7 @@ public class ConfigsCatequistaActivity extends AppCompatActivity {
         turmaSelecionada = findViewById(R.id.textTurmaSelecionada);
         spinnerTurmaCat = findViewById(R.id.spinnerTurmaCat);
 
-        if(new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista() != null){
+        if (new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista() != null) {
             turmaSelecionada.setText(new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista());
             selected = new LocalPreferences(ConfigsCatequistaActivity.this).getTurmaCatequista();
         }
@@ -45,69 +43,69 @@ public class ConfigsCatequistaActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                switch (position){
+                switch (position) {
 
-                    case 0:{
+                    case 0: {
                         Toast.makeText(ConfigsCatequistaActivity.this, "Selecione uma Turma", Toast.LENGTH_LONG).show();
                         break;
                     }
-                    case 1:{
+                    case 1: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 4:{
+                    case 4: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 5:{
+                    case 5: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 6:{
+                    case 6: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 7:{
+                    case 7: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 8:{
+                    case 8: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();
 
                         break;
                     }
-                    case 9:{
+                    case 9: {
                         selected = parent.getSelectedItem().toString();
                         parser = selected.split("-");
                         selected = parser[1].trim();

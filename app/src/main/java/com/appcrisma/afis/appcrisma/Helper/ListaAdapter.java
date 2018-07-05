@@ -1,20 +1,24 @@
 package com.appcrisma.afis.appcrisma.Helper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
+import com.appcrisma.afis.appcrisma.FirebaseDB.BLLFirebase.ControleBLL;
 import com.appcrisma.afis.appcrisma.Models.RegFrequencia;
 import com.appcrisma.afis.appcrisma.Models.Turmas;
 import com.appcrisma.afis.appcrisma.R;
@@ -64,8 +68,10 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
                 // recupera elemento para exibição
                 TextView nome = view.findViewById(R.id.LstNome);
                 TextView nfaltas = view.findViewById(R.id.LstFaltas);
-                final CheckBox chkPresente = view.findViewById(R.id.checkBoxPresente);
-                final CheckBox chkFaltou = view.findViewById(R.id.checkBoxFaltou);
+                final Button btPresente = view.findViewById(R.id.listP);
+                final Button btFalta = view.findViewById(R.id.listF);
+                //final CheckBox chkPresente = view.findViewById(R.id.checkBoxPresente);
+                //final CheckBox chkFaltou = view.findViewById(R.id.checkBoxFaltou);
 
                 //monta a exibição de acordo com os dados passados
                 final Turmas turma = turmas.get( position );
@@ -76,52 +82,72 @@ public class ListaAdapter extends ArrayAdapter<Turmas>{
                 //Controle de registro de frequencia
                 count = getPosition(turma);
 
-                final Calendar currentData = Calendar.getInstance();
-                SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
-
-
                 frequencia[count] = new RegFrequencia();
                 frequencia[count].setNomeCrismando(turma.getNomeCrismando());
-                frequencia[count].setTurma(new LocalPreferences(context).getTurmaCatequista().toString());
-                frequencia[count].setDataRegistro(formataData.format(currentData.getTime()).toString().replace("/", "-"));
+                frequencia[count].setTurma(new LocalPreferences(context).getTurmaCatequista());
+                frequencia[count].setDataRegistro(Util.getDataAtual());
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    chkFaltou.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                    chkPresente.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#40e716")));
-                }
-                chkPresente.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                btPresente.setOnClickListener(new View.OnClickListener() {
 
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked){
-                            count = getPosition(turma);
-                            frequencia[count].setPresente(true);
-                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
-                            chkFaltou.setChecked(false);
+                    public void onClick(View view) {
+                        count = getPosition(turma);
+                        frequencia[count].setPresente(true);
+                        ControleBLL.atualizarFrequencia(frequencia[count], Util.getAnoAtual());
+                        btPresente.setBackgroundColor(Color.BLUE);
+                        btFalta.setBackgroundColor(Color.parseColor("#ff0000"));
+                    }
+                });
+                btFalta.setOnClickListener(new View.OnClickListener() {
 
-                        }
+                    @Override
+                    public void onClick(View view) {
+                        count = getPosition(turma);
+                        frequencia[count].setPresente(false);
+                        ControleBLL.atualizarFrequencia(frequencia[count], Util.getAnoAtual());
+                        btFalta.setBackgroundColor(Color.BLUE);
+                        btPresente.setBackgroundColor(Color.parseColor("#40e716"));
                     }
                 });
 
-                chkFaltou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked){
-                            count = getPosition(turma);
-                            frequencia[count].setPresente(false);
-                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
-                            chkPresente.setChecked(false);
-                        }
-                    }
-                });
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    chkFaltou.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+//                    chkPresente.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#40e716")));
+//                }
+//                chkPresente.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if(isChecked){
+//                            count = getPosition(turma);
+//                            frequencia[count].setPresente(true);
+//                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
+//                            chkFaltou.setChecked(false);
+//
+//                        }
+//                    }
+//                });
+//
+//                chkFaltou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if(isChecked){
+//                            count = getPosition(turma);
+//                            frequencia[count].setPresente(false);
+//                            salvarFirebase(frequencia[count], String.valueOf(currentData.get(Calendar.YEAR)), turma);
+//                            chkPresente.setChecked(false);
+//                        }
+//                    }
+//                });
             }
             return view;
         }
 
-    public void salvarFirebase(RegFrequencia obj, String year, Turmas turmas){
-        FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(obj.getDataRegistro()).child(obj.getTurma())
-                .child(obj.getNomeCrismando()).setValue(obj);
-       }
+//    public void salvarFirebase(RegFrequencia obj, String year, Turmas turmas){
+//        FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(obj.getDataRegistro()).child(obj.getTurma())
+//                .child(obj.getNomeCrismando()).setValue(obj);
+//       }
 
 
 }

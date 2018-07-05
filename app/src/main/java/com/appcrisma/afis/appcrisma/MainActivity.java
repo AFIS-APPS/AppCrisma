@@ -7,15 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +21,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 //        implements NavigationView.OnNavigationItemSelectedListener {
-{ TextView fraseView, cadastreView;
+{
+    TextView fraseView, cadastreView;
     Button buttonEntrar;
 
     @Override
@@ -37,13 +35,13 @@ public class MainActivity extends AppCompatActivity
         fraseAleatoria();
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Envie sua sugestão ou informe um bug!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-               ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
                 ClipData clipData = ClipData.newPlainText("e-mail", "afis.apps@gmail.com");
 
@@ -78,23 +76,23 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void fraseAleatoria(){
+    public void fraseAleatoria() {
         String[] frases = {"'Eu sou o caminho, e a verdade, e a vida. Ninguém vem ao Pai, senão por mim.'",
                 "'Amai ao próximo como a ti mesmo, fazei pelos outros o que gostaríamos que os outros fizessem por nós.'",
                 "'Não diga a Deus que você tem um grande problema, diga ao teu problema que você tem um grande Deus'",
-        "'Quando você passar por momentos difíceis e se perguntar onde estará Deus, lembre-se que durante uma prova, o professor está em silêncio.'",
-        "'Seja qual for o seu problema fale com Deus, ele vai ajudar você.'",
-        "'Após a dor vem a alegria, pois Deus é amor e não te deixará sofrer'",
-        "'O mundo pode até fazer você chorar mas Deus te quer sorrindo.'",
-        "'Se permanecerdes em mim e minhas palavras permanecerem em vós, pedireis tudo o que quiserdes e vos será dado. ( João 15, 7)'",
-        "'Basta que sejam jovens para que eu vos ame (S. João Bosco)'",
-        "'Meu filho, não esqueças os meus ensinamentos e guarda no coração os meus preceitos (Pr 3, 1)'",
-        "'Mais felizes são os que ouvem a palavra de Deus e a põem em prática (Lc 11, 28)'",
+                "'Quando você passar por momentos difíceis e se perguntar onde estará Deus, lembre-se que durante uma prova, o professor está em silêncio.'",
+                "'Seja qual for o seu problema fale com Deus, ele vai ajudar você.'",
+                "'Após a dor vem a alegria, pois Deus é amor e não te deixará sofrer'",
+                "'O mundo pode até fazer você chorar mas Deus te quer sorrindo.'",
+                "'Se permanecerdes em mim e minhas palavras permanecerem em vós, pedireis tudo o que quiserdes e vos será dado. ( João 15, 7)'",
+                "'Basta que sejam jovens para que eu vos ame (S. João Bosco)'",
+                "'Meu filho, não esqueças os meus ensinamentos e guarda no coração os meus preceitos (Pr 3, 1)'",
+                "'Mais felizes são os que ouvem a palavra de Deus e a põem em prática (Lc 11, 28)'",
                 "'No presente permanecem estas três coisas: fé, esperança e amor; mas a maior delas é o amor' (1Cor 13, 13)"};
+
         Random random = new Random();
         int value = random.nextInt(12);
         fraseView = findViewById(R.id.fraseView);
-//        Log.d("FRASE", String.valueOf(value));
         fraseView.setText(frases[value]);
 
     }
@@ -118,9 +116,9 @@ public class MainActivity extends AppCompatActivity
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
 //        int id = item.getItemId();
 //
 //        //noinspection SimplifiableIfStatement
@@ -129,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 //        }
 //
 //        return super.onOptionsItemSelected(item);
-    }
+}
 
 //    @SuppressWarnings("StatementWithEmptyBody")
 //    @Override

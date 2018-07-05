@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="com.appcrisma.afis.appcrisma.Catequista.ListaActivity">
-
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
@@ -19,39 +22,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listaAlunos"
-        style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/colorAccent"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/confirmarChamada"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NomeCabeçalho" />
-
-    <Button
-        android:id="@+id/confirmarChamada"
-        style="@style/AppTheme"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/colorPrimary"
-        android:text="Confirmar Presenças"
-        android:textColor="@color/colorAccent"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ListView
+            android:id="@+id/listaAlunos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/confirmarChamada"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/NomeCabeçalho">
+        </ListView>
 
     <TextView
 
@@ -114,15 +95,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TurmaView" />
 
-    <TextView
-        android:id="@+id/faltaCabeçalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="F"
-        android:textColor="@color/lista_aluno_faltou"
-        app:layout_constraintBaseline_toBaselineOf="@+id/presençaCabeçalho"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/faltaCabeçalho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="F"
+            android:textColor="@color/lista_aluno_faltou"
+            app:layout_constraintBaseline_toBaselineOf="@+id/presençaCabeçalho"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/presençaCabeçalho"
@@ -134,4 +115,32 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/NomeCabeçalho"
         app:layout_constraintEnd_toStartOf="@+id/faltaCabeçalho" />
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/confirmarChamada"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:background="@color/colorPrimary"
+            android:onClick="confirmarChamada"
+            android:text="Confirmar Presenças"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/confirmarChamada"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:text="Confirmar Presenças"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:textSize="12sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+</ScrollView>

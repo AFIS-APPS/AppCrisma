@@ -2,8 +2,6 @@ package com.appcrisma.afis.appcrisma.Helper;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,8 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.appcrisma.afis.appcrisma.Models.Avisos;
 import com.appcrisma.afis.appcrisma.R;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -52,9 +52,9 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
 
         // Verifica se a lista está vazia
 
-        if( avisos != null ){
+        if (avisos != null) {
 
-            if(convertView == null){
+            if (convertView == null) {
                 // inicializar objeto para montagem da view
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -66,12 +66,12 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
                 dataAtual = view.findViewById(R.id.modelDatAvisoField);
                 titulo = view.findViewById(R.id.modelTitAviso);
                 corpo = view.findViewById(R.id.modelCrpAvisoField);
-            }else{
+            } else {
                 view = convertView;
             }
 
             //monta a exibição de acordo com os dados passados
-            Avisos aviso = avisos.get( position );
+            Avisos aviso = avisos.get(position);
 
             autorAtual.setText(aviso.getAutorAviso());
             dataAtual.setText(aviso.getDataAviso());
@@ -81,11 +81,11 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
             btExpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!aux[position]){
-                    corpo.setVisibility(View.VISIBLE);
-                    //btExpand.setImageDrawable(R.drawable.);
+                    if (!aux[position]) {
+                        corpo.setVisibility(View.VISIBLE);
+                        //btExpand.setImageDrawable(R.drawable.);
                         aux[position] = true;
-                }else{
+                    } else {
                         corpo.setVisibility(View.GONE);
                         aux[position] = false;
                     }
@@ -132,15 +132,15 @@ public class AvisoAdapter extends ArrayAdapter<Avisos> {
         super.setDropDownViewResource(resource);
     }
 
-    @Override
-    public void setDropDownViewTheme(@Nullable Resources.Theme theme) {
-        super.setDropDownViewTheme(theme);
-    }
-
     @Nullable
     @Override
     public Resources.Theme getDropDownViewTheme() {
         return super.getDropDownViewTheme();
+    }
+
+    @Override
+    public void setDropDownViewTheme(@Nullable Resources.Theme theme) {
+        super.setDropDownViewTheme(theme);
     }
 
     @Override

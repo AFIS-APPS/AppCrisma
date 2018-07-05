@@ -1,32 +1,21 @@
 package com.appcrisma.afis.appcrisma;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.appcrisma.afis.appcrisma.Catequista.MainActivityCatequista;
-import com.appcrisma.afis.appcrisma.Catequista.ModeloCatequista;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
-import com.appcrisma.afis.appcrisma.Crismando.MainActivityCrismando;
-import com.appcrisma.afis.appcrisma.Crismando.ModeloCrismando;
-import com.appcrisma.afis.appcrisma.Helper.BDContas;
+import com.appcrisma.afis.appcrisma.FirebaseDB.BLLFirebase.LoginBLL;
 import com.appcrisma.afis.appcrisma.Helper.Base64Custom;
 import com.appcrisma.afis.appcrisma.Helper.Loader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }).start();
         } else {
+
             btnLogin = findViewById(R.id.buttonLogin);
             login = findViewById(R.id.campoEmail);
             senha = findViewById(R.id.campoSenha);
@@ -88,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                             dialog.dismiss();
                                         } else {
                                             dialog.dismiss();
-                                            Toast.makeText(LoginActivity.this, task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -102,60 +92,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void verificaUsuarioBase(){
-        FirebaseConfig.getDatabaseReference().child("BDContas").child("CatequistasCadastrados").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dados : dataSnapshot.getChildren()){
-                    BDContas catequista = dados.getValue(BDContas.class);
+    private void verificaUsuarioBase() {
 
-                    if(catequista.getChaveId().equals(codedLogin) && catequista.getNomeUser() != null){
-                        String[] aux = catequista.getNomeUser().split(" ");
-                        finish();
-                        Toast.makeText(LoginActivity.this, "Bem Vindo Sr(a). "+aux[0], Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivityCatequista.class));
-                        return;
-                    }
-//                    else{
-//                        dialog.dismiss();
-//                        Toast.makeText(LoginActivity.this, "Uruário não existe em nossa Base de Dados!", Toast.LENGTH_LONG).show();
-//                        FirebaseConfig.getFirebaseAuth().signOut();
-//                    }
-                }
-            }
+        LoginBLL.verificaBaseCatequista(codedLogin, LoginActivity.this, dialog);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        FirebaseConfig.getDatabaseReference().child("BDContas").child("CrismandosCadastrados").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dados : dataSnapshot.getChildren()){
-                    BDContas crismando = dados.getValue(BDContas.class);
-
-                    if(crismando.getChaveId().equals(codedLogin) && crismando.getNomeUser() != null){
-                        String[] aux = crismando.getNomeUser().split(" ");
-                        Toast.makeText(LoginActivity.this, "Bem Vindo Sr(a). "+aux[0], Toast.LENGTH_LONG).show();
-                        finish();
-                        startActivity(new Intent(LoginActivity.this, MainActivityCrismando.class));
-                    }
-//                    else{
-//                        dialog.dismiss();
-//                        Toast.makeText(LoginActivity.this, "Uruário não existe em nossa Base de Dados!", Toast.LENGTH_LONG).show();
-//                        FirebaseConfig.getFirebaseAuth().signOut();
-//                    }
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        LoginBLL.verificaBaseCrismando(codedLogin, LoginActivity.this, dialog);
 
     }
 

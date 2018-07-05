@@ -16,7 +16,7 @@ public class FirebaseConfig {
 
     public static DatabaseReference getDatabaseReference() {
 
-        if (databaseReference == null){
+        if (databaseReference == null) {
 
             databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -27,7 +27,7 @@ public class FirebaseConfig {
 
     public static FirebaseAuth getFirebaseAuth() {
 
-        if(firebaseAuth == null){
+        if (firebaseAuth == null) {
 
             firebaseAuth = FirebaseAuth.getInstance();
 
@@ -36,8 +36,8 @@ public class FirebaseConfig {
         return firebaseAuth;
     }
 
-    public static FirebaseAuth getFirebaseAutenticacao(){
-        if( firebaseAutenticacao == null ){
+    public static FirebaseAuth getFirebaseAutenticacao() {
+        if (firebaseAutenticacao == null) {
             firebaseAutenticacao = FirebaseAuth.getInstance();
         }
         return firebaseAutenticacao;

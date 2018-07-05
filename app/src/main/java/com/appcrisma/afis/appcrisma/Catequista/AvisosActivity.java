@@ -1,19 +1,21 @@
 package com.appcrisma.afis.appcrisma.Catequista;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import com.appcrisma.afis.appcrisma.FirebaseDB.BLLFirebase.AvisosBLL;
 import com.appcrisma.afis.appcrisma.Helper.RcAvisoAdapter;
 import com.appcrisma.afis.appcrisma.Models.Avisos;
 import com.appcrisma.afis.appcrisma.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,14 +54,13 @@ public class AvisosActivity extends AppCompatActivity {
             }
         });
 
-    adapter = new RcAvisoAdapter(avisosArrayList, AvisosActivity.this);
-    rcListView.setAdapter(adapter);
+        adapter = new RcAvisoAdapter(avisosArrayList, AvisosActivity.this);
+        rcListView.setAdapter(adapter);
 
-    RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
-            LinearLayoutManager.VERTICAL, false);
-    rcListView.setLayoutManager(layout);
-    AvisosBLL.getAvisosList(adapter);
-
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+        rcListView.setLayoutManager(layout);
+        AvisosBLL.getAvisosList(adapter);
 
 
     }

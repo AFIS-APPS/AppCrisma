@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.appcrisma.afis.appcrisma.Catequista.MainActivityCatequista"
-    android:background="@drawable/fundo_catequsita" >
+    android:background="@drawable/fundo_catequsita"
+    tools:context="com.appcrisma.afis.appcrisma.Catequista.MainActivityCatequista">
 
     <com.hitomi.cmlibrary.CircleMenu
         android:id="@+id/CircleMenuCatequista"

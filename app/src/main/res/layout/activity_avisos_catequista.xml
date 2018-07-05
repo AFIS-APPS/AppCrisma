@@ -19,35 +19,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avisosView">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcListView"
-        android:layout_width="0dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avisosView"
-        android:layout_height="0dp">
-
+        app:layout_constraintTop_toBottomOf="@+id/avisosView">
     </android.support.v7.widget.RecyclerView>
-
-<!--<ListView-->
-        <!--android:id="@+id/listViewAvisos"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/avisosView" />-->
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbAdcAviso"
@@ -56,6 +48,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="15dp"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

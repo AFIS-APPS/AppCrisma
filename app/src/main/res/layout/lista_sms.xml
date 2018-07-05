@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/nomeCrismandoSMS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtEnviaSMS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contatoCrismandoSMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text=" "
+        android:textColor="@android:color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeCrismandoSMS" />
+
+    <TextView
+        android:id="@+id/paiRespview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Pai/Resp :"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contatoCrismandoSMS" />
+
+    <TextView
+        android:id="@+id/nomePaiSMS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/paiRespview"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtEnviaSMS"
+        app:layout_constraintStart_toEndOf="@+id/paiRespview" />
+
+    <ImageButton
+        android:id="@+id/imgbtEnviaSMS"
+        style="@android:style/Widget.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icone_enviarsms" />
+
+    <TextView
+        android:id="@+id/contatoPaiSMS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/contatoView"
+        app:layout_constraintStart_toEndOf="@+id/contatoView" />
+
+    <TextView
+        android:id="@+id/contatoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Contato :"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paiRespview" />
+
+    <EditText
+        android:id="@+id/descSMS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/stringSMS"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contatoView" />
+
+</android.support.constraint.ConstraintLayout>

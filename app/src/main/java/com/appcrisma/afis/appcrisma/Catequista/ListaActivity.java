@@ -16,8 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
+import com.appcrisma.afis.appcrisma.FirebaseDB.BLLFirebase.ControleBLL;
 import com.appcrisma.afis.appcrisma.Helper.ListaAdapter;
 import com.appcrisma.afis.appcrisma.Helper.LocalPreferences;
+import com.appcrisma.afis.appcrisma.Helper.Util;
 import com.appcrisma.afis.appcrisma.Models.RegFrequencia;
 import com.appcrisma.afis.appcrisma.Models.Turmas;
 import com.appcrisma.afis.appcrisma.R;
@@ -40,9 +42,8 @@ public class ListaActivity extends AppCompatActivity {
     private ValueEventListener eventListener;
     private ArrayAdapter adapter;
     private ArrayList<Turmas> arrayturmas;
-    private int sysYear;
-    private SimpleDateFormat formataData;
-    private Calendar currentData;
+    TextView dataAtual;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -58,7 +59,7 @@ public class ListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        TextView dataAtual = findViewById(R.id.dataatual);
+        dataAtual = findViewById(R.id.dataatual);
         Button confirmaChamada = findViewById(R.id.confirmarChamada);
 
         confirmaChamada.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +68,8 @@ public class ListaActivity extends AppCompatActivity {
                 confirmarChamada();
             }
         });
-        currentData = Calendar.getInstance();
 
-        formataData = new SimpleDateFormat("dd-MM-yyyy");
-        dataAtual.setText(formataData.format(currentData.getTime()));
+        dataAtual.setText(Util.getDataAtual());
 
         ListView listaAlunos = findViewById(R.id.listaAlunos);
 
@@ -79,14 +78,13 @@ public class ListaActivity extends AppCompatActivity {
         adapter = new ListaAdapter(this, arrayturmas);
 
         listaAlunos.setAdapter(adapter);
-        sysYear = currentData.get(Calendar.YEAR);
         turmaAt = new LocalPreferences(ListaActivity.this).getTurmaCatequista();
 
         if(turmaAt != null) {
             TextView turmaAtual = findViewById(R.id.QualTurmaView);
             turmaAtual.setText(turmaAt);
 
-            firebase = FirebaseConfig.getDatabaseReference().child("Turmas").child(String.valueOf(sysYear)).child(turmaAt);
+            firebase = FirebaseConfig.getDatabaseReference().child("Turmas").child(Util.getAnoAtual()).child(turmaAt);
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(ListaActivity.this);
             builder.setMessage("Nenhuma turma configurada para este usuário. Deseja alterar configuração?");
@@ -128,43 +126,45 @@ public class ListaActivity extends AppCompatActivity {
     }
 
     private void confirmarChamada(){
-        if(FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(formataData.format(currentData.getTime()).toString().replace("/", "-")).child(turmaAt) != null) {
+        if(FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(Util.getDataAtual()).child(turmaAt) != null) {
 
-            FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(formataData.format(currentData.getTime()).toString().replace("/", "-")).child(turmaAt)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dados : dataSnapshot.getChildren()){
+//            FirebaseConfig.getDatabaseReference().child("Controle de Frequencia").child(Util.getDataAtual()).child(turmaAt)
+//                    .addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            for (DataSnapshot dados : dataSnapshot.getChildren()){
+//
+//                                final RegFrequencia frequencia = dados.getValue(RegFrequencia.class);
+//
+//                                if(frequencia.getPresente().equals(false)){
+//                                    FirebaseConfig.getDatabaseReference().child("Turmas").child(Util.getAnoAtual()).child(turmaAt)
+//                                            .child(frequencia.getNomeCrismando()).child("numFaltas").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                int turma = Integer.parseInt(String.valueOf(dataSnapshot.getValue()));
+//
+//                                                firebase.child(frequencia.getNomeCrismando()).child("numFaltas").setValue(turma + 1).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<Void> task) {
+//                                                        if (task.isSuccessful()){
+//                                                            controleChamada = true;
+//                                                        }
+//                                                    }
+//                                                });
+//                                        }
+//                                        @Override
+//                                        public void onCancelled(DatabaseError databaseError) {
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        }
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                        }
+//                    });
 
-                                final RegFrequencia frequencia = dados.getValue(RegFrequencia.class);
-
-                                if(frequencia.getPresente().equals(false)){
-                                    FirebaseConfig.getDatabaseReference().child("Turmas").child(String.valueOf(sysYear)).child(turmaAt)
-                                            .child(frequencia.getNomeCrismando()).child("numFaltas").addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                                int turma = Integer.parseInt(String.valueOf(dataSnapshot.getValue()));
-
-                                                firebase.child(frequencia.getNomeCrismando()).child("numFaltas").setValue(turma + 1).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()){
-                                                            controleChamada = true;
-                                                        }
-                                                    }
-                                                });
-                                        }
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
+            controleChamada = ControleBLL.encerrarChamada(turmaAt, dataAtual.getText().toString());
         }else{
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ListaActivity.this);
@@ -193,7 +193,7 @@ public class ListaActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(controleChamada){
             AlertDialog.Builder builder = new AlertDialog.Builder(ListaActivity.this);
-            builder.setTitle("Dia :" + formataData.format(currentData.getTime()).toString());
+            builder.setTitle("Dia :" + Util.getDataAtual());
             builder.setMessage("Chamada para a Turma:  "+ turmaAt + "  realizada com sucesso!");
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override

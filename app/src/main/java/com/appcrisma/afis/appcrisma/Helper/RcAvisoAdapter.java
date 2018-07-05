@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.appcrisma.afis.appcrisma.Models.Avisos;
@@ -41,7 +40,7 @@ public class RcAvisoAdapter extends RecyclerView.Adapter<RcAvisoAdapter.ViewHold
     public void onBindViewHolder(RcAvisoAdapter.ViewHolder holder, int position) {
         final ViewHolder viewHolder = (ViewHolder) holder;
 
-        Avisos modeloAviso =  avisos.get(position);
+        Avisos modeloAviso = avisos.get(position);
 
         viewHolder.titulo.setText(modeloAviso.getTituloAviso());
         viewHolder.autorAtual.setText(modeloAviso.getAutorAviso());
@@ -52,11 +51,11 @@ public class RcAvisoAdapter extends RecyclerView.Adapter<RcAvisoAdapter.ViewHold
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewHolder.corpo.getVisibility() != View.VISIBLE){
+                if (viewHolder.corpo.getVisibility() != View.VISIBLE) {
                     viewHolder.corpo.setVisibility(View.VISIBLE);
                     //btExpand.setImageDrawable(R.drawable.);
 
-                }else{
+                } else {
                     viewHolder.corpo.setVisibility(View.GONE);
 
                 }
@@ -79,7 +78,7 @@ public class RcAvisoAdapter extends RecyclerView.Adapter<RcAvisoAdapter.ViewHold
         this.avisos = avisos;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView autorAtual, dataAtual, titulo, corpo;
 
         public ViewHolder(View view) {

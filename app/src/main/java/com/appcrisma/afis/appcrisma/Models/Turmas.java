@@ -7,9 +7,10 @@ public class Turmas {
     String turma, nomeCrismando, telefoneCrismando, telefonePaiCrismando;
     int numFaltas;
 
-    public Turmas(){
+    public Turmas() {
         numFaltas = 0;
     }
+
     @Exclude
     public String getTurma() {
         return turma;

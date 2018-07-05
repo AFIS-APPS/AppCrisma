@@ -1,6 +1,5 @@
 package com.appcrisma.afis.appcrisma.FirebaseDB.DALFirebase;
 
-import android.widget.ArrayAdapter;
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
 import com.appcrisma.afis.appcrisma.Helper.RcAvisoAdapter;
 import com.appcrisma.afis.appcrisma.Models.Avisos;
@@ -23,8 +22,8 @@ public class AvisosDAL {
         dbC.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    avisosArrayList.clear();
-                for(DataSnapshot dados : dataSnapshot.getChildren()){
+                avisosArrayList.clear();
+                for (DataSnapshot dados : dataSnapshot.getChildren()) {
                     Avisos avisos = dados.getValue(Avisos.class);
                     avisosArrayList.add(avisos);
                 }

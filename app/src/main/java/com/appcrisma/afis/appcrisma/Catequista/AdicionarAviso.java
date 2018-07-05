@@ -1,8 +1,7 @@
 package com.appcrisma.afis.appcrisma.Catequista;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,13 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appcrisma.afis.appcrisma.Configs.FirebaseConfig;
-import com.appcrisma.afis.appcrisma.Helper.Base64Custom;
 import com.appcrisma.afis.appcrisma.Models.Avisos;
 import com.appcrisma.afis.appcrisma.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.logging.Formatter;
 
 public class AdicionarAviso extends AppCompatActivity {
 
@@ -68,9 +65,9 @@ public class AdicionarAviso extends AppCompatActivity {
                     FirebaseConfig.getDatabaseReference().child("Avisos").child(avisos.tituloAviso)
                             .setValue(avisos);
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     throw e;
-                }finally {
+                } finally {
                     limparCampos();
                     Toast.makeText(AdicionarAviso.this, "Aviso Adicionado com Sucesso!", Toast.LENGTH_LONG).show();
                     finish();
@@ -79,7 +76,7 @@ public class AdicionarAviso extends AppCompatActivity {
         });
     }
 
-    private void limparCampos(){
+    private void limparCampos() {
         tituloAviso.setText("");
         corpoAviso.setText("");
     }

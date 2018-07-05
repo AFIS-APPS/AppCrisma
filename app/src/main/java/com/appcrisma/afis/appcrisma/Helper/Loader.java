@@ -6,6 +6,7 @@ import android.content.Context;
 public class Loader {
 
     ProgressDialog progressDialog;
+
     public ProgressDialog loading(Context aplicationContext) {
         progressDialog = new ProgressDialog(aplicationContext);
         progressDialog.setMessage("Loading");
